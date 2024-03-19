@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_INPUT_LENGTH 1000
+#define SUMMARY_SENTENCES 2 // Number of sentences in the summary
+
+int main() {
+    char input[MAX_INPUT_LENGTH];
+    char summary[MAX_INPUT_LENGTH];
+    
+    printf("Enter the text to summarize:\n");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, "\n")] = '\0'; // Remove newline character
+
+    char* token = strtok(input, ".");
+    int sentence_count = 0;
+    
+    while (token != NULL && sentence_count < SUMMARY_SENTENCES) {
+        strcat(summary, token);
+        strcat(summary, ".");
+        token = strtok(NULL, ".");
+        sentence_count++;
+    }
+
+    printf("\nSummary:\n%s\n", summary);
+    return 0;
+}
